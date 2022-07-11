@@ -1,39 +1,25 @@
-import FB from './FirebaseConfig';
-async function getMetadata(db) {
-    const citiesRef = db.collection('metadata');
-    const snapshot = await citiesRef.get();
-    snapshot.forEach(doc => {
-      console.log(doc.id, '=>', doc.data());
-    });;
-}
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore'
+import db from './FirebaseConfig';
 
-console.log(getMetadata(FB))
 function MainList() {
-   
+    const [data, setData] = useState([]);
+    const metadataRef = collection(db, 'metadata');
 
-    let data = [
-        {
-            id: 1,
-            config_type: 'Metadata',
-            data: '{....}',
-            created_at: '1/1/2022',
-            updated_at: '2/1/2022',
-            version: '1.0.0'
-        },
-        {
-            id: 2,
-            config_type: 'Technical Data',
-            data: '{....}',
-            created_at: '1/2/2022',
-            updated_at: '2/1/2022',
-            version: '1.8.4'
-        },
-    ]
+    useEffect(() => {
+        const getData = async () => {
+            const data = await getDocs(metadataRef);
+            setData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        };
+
+        getData();
+    }, []);
+
     let finalData = data.map((el) => {
         return <tr>
-            <td>{el.id}</td>
+            <td>{el.uuid}</td>
             <td>{el.config_type}</td>
-            <td>{el.data}</td>
+            <td><pre>{JSON.stringify('obj: {...}')}</pre></td>
             <td>{el.created_at}</td>
             <td>{el.updated_at}</td>
             <td>{el.version}</td>
@@ -44,11 +30,16 @@ function MainList() {
             </td>
         </tr>
     })
+
     return (
         <div className="container">
             <div className="d-grid gap-2 d-md-block">
                 <button type="button" className="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Add New Config
+                    Add New Metadata
+                </button> 
+                
+                <button type="button" className="btn btn-primary float-start ms-2" data-bs-toggle="modal" data-bs-target="#techincal_Data">
+                    Add New Techincal Data
                 </button>
             </div>
 
