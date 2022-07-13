@@ -1,3 +1,5 @@
+import React from "react";
+import { Outlet, Link } from "react-router-dom";
 function Nav() {
     return (
         <nav className="navbar navbar-expand-lg bg-info">
@@ -8,15 +10,19 @@ function Nav() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <a className="nav-link active" href="https://#">Manage Confiugrations</a>
+                        <li className="nav-item btn btn-warning">
+                            <Link className="nav-link active" to="/">Manage Confiugrations</Link>
+                        </li>
+                        <li className="nav-item btn btn-warning ms-2">
+                            <Link className="nav-item btn btn-warning ms-2" to="/pending_approval">Pending Approval</Link>
                         </li>
 
-                        <li className="nav-item">
-                            <a className="nav-link" href="https://#">Audit Trail</a>
+                        <li className="nav-item btn btn-warning ms-2">
+                            <Link className="nav-link active" to="/audit_trail">Audit Trail</Link>
                         </li>
                     </ul>
                 </div>
+                <Outlet />
             </div>
         </nav>
     );
