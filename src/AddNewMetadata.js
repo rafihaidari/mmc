@@ -90,11 +90,11 @@ let AddNewMetadata = () => {
                                 onChange={(event) => { setnewAppURL(event.target.value) }} />
                         </div>
 
-                        <div className="mb-3">
+                        {/* <div className="mb-3">
                             <label className="form-label">Config Version</label>
                             <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="3.2.5"
                                 onChange={(event) => { setNewVersion(event.target.value) }} />
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="modal-footer">
