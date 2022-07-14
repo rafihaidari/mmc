@@ -24,25 +24,20 @@ let AddNewMetadata = () => {
         getMetadataId();
     }, []);
 
-    if (metadata.includes(newAppName)) {
-        console.log("App already exists")
-    }
     const createMetadata = async () => {
 
         // const metadataRef = collection(db, 'metadata');
         let appSlug = newAppName.toLowerCase().split(' ').join('_')
         let metadata = {
             "uuid": uuidv4(),
-            "data": {
-                app_config_manager: newAppConfigManager,
-                app_owner: newAppOwner,
-                app_url: newAppURL
-            },
+            'app_config_manager': newAppConfigManager,
+            'app_owner': newAppOwner,
+            'app_url': newAppURL,
             "app_name": newAppName,
             "app_slug": appSlug,
             "created_at": new Date().toISOString(),
             "updated_at": new Date().toISOString(),
-            "version": newVersion,
+            "version": 1,
             "config_type": "Metadata",
             "status": "pending"
         }

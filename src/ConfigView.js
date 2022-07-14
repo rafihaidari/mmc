@@ -1,27 +1,52 @@
-let ConfigView =  (e) => {
-    return (
-        <div className="modal fade" id="ConfigView" tabIndex="-1" aria-labelledby="ConfigViewLabel" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="ConfigViewLabel">Config Data</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <div className="mb-3">
-                            <label className="form-label">Config JSON Object</label>
-                            <textarea className="form-control" id="exampleFormControlInput1" placeholder="{...}" readOnly></textarea>
-                        </div>
-                    </div>
+import { collection, doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import db from "./FirebaseConfig";
+import Nav from "./Nav"
+import ReactJson from 'react-json-view'
+let ConfigView = (e) => {
+    let [config, setConfig] = useState({});
 
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    useEffect(() => {
+        const getMetadata = async () => {
+            const queryParams = new URLSearchParams(window.location.search);
+            let getUuid = queryParams.get('uuid')
+            let col = queryParams.get('collection')
+            let docu = queryParams.get('document')
+
+            col = col.toLowerCase();
+
+            const getDocu = doc(db, col, docu)
+            await getDoc(getDocu).then((doc) => {
+                setConfig(doc.data())
+            })
+        }
+
+        getMetadata();
+    }, []);
+
+    return (
+
+        <div>
+            
+            <Nav />
+            <div className="container mt-5">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <h3>Config View</h3>
+                                <div className="mb-3">
+                                    <label className="form-label">JSON Object</label>
+                                    <ReactJson src={config} theme="monokai" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 
-export default ConfigView
+export { ConfigView }
 

@@ -32,7 +32,7 @@ let AddNewTechnicalData = () => {
             "permissions": newPermissions,
             "created_at": new Date().toISOString(),
             "updated_at": new Date().toISOString(),
-            "version": newVersion,
+            "version": 1,
             "config_type": "Technical_data",
             "status": "pending"
         }
@@ -87,11 +87,11 @@ let AddNewTechnicalData = () => {
 
                         </div>
 
-                        <div className="mb-3">
+                        {/* <div className="mb-3">
                             <label className="form-label">Config Version</label>
                             <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="3.2.5"
                                 onChange={(event) => { setNewVersion(event.target.value) }} />
-                        </div>
+                        </div> */}
                     </div>
 
 

@@ -41,3 +41,11 @@
   cursor: pointer;
   color: #065affa8;
 }
+.nav-link {
+  display: inline !important;
+  margin-left: 5px;
+}
+
+.navbar-light{
+  background-color: #bbdff9;
+}
